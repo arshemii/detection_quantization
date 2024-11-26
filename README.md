@@ -11,6 +11,8 @@ It contains:
 2. A quantization workflow using "nncf" toolkit of OpenVino.
    To learn more about quantization:     https://paperswithcode.com/paper/post-training-quantization-for-neural
    To learn more about nncf:             https://docs.openvino.ai/2024/openvino-workflow/model-optimization.html
+
+   ** To use this function, you need a subset of coco dataset (or any other dataset in the format compatible with YOLO models)
 --------------------------------
 Github resources:
 1. https://github.com/ultralytics/ultralytics
