@@ -13,6 +13,7 @@ It contains:
    To learn more about nncf:             https://docs.openvino.ai/2024/openvino-workflow/model-optimization.html
 
    ** To use this function, you need a subset of coco dataset (or any other dataset in the format compatible with YOLO models)
+   ** See the comments in quantization.py to adjust the code for your models
 --------------------------------
 Github resources:
 1. https://github.com/ultralytics/ultralytics
