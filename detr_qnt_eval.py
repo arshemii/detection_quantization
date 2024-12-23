@@ -17,7 +17,7 @@ from pathlib import Path
 import torch.nn.functional as F
 import argparse
 import openvino.properties.hint as hints
-from DETR.engine import evaluate_ov
+from DETR.eval_ir import evaluate_ov
 from DETR.models.detr import SetCriterion, PostProcess
 from DETR.models.matcher import build_matcher
 from DETR.datasets import get_coco_api_from_dataset
