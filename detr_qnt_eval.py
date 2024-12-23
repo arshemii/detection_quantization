@@ -78,7 +78,7 @@ def main(mode):
             self.masks = False
             self.bbox_loss_coef = 5
             self.giou_loss_coef = 2
-            #self.output_dir = Path(f"{ROOT}/eval_out/")
+            self.output_dir = Path(f"{ROOT}/eval_out/")
             self.device = 'cpu'
             self.set_cost_class = 1
             self.set_cost_bbox = 5
@@ -137,7 +137,7 @@ def main(mode):
             compiled_model = core.compile_model(ov_model, device_name="CPU", config={hints.performance_mode: hints.PerformanceMode.THROUGHPUT})
             input_layer = compiled_model.input(0)
             test_stats_main, coco_evaluator_main = evaluate_ov(compiled_model, criterion, postprocessors,
-                                                            data_loader_val, base_ds, device, input_layer)
+                                                            data_loader_val, base_ds, device, args.output_dir, input_layer)
             return
         else:
             ov_model_path = Path(f"{ROOT}/IR_models/detr_openvino_model/detr_quantized.xml")
@@ -147,7 +147,7 @@ def main(mode):
             compiled_model = core.compile_model(ov_model, device_name="CPU", config={hints.performance_mode: hints.PerformanceMode.THROUGHPUT})
             input_layer = compiled_model.input(0)
             test_stats_main, coco_evaluator_main = evaluate_ov(compiled_model, criterion, postprocessors,
-                                                            data_loader_val, base_ds, device, input_layer)
+                                                            data_loader_val, base_ds, device, args.output_dir, input_layer)
             return
         
 if __name__ == "__main__":
