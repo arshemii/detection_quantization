@@ -111,10 +111,6 @@ def main(mode):
         return
     
     else:
-        print("..............")
-        print("Evaluation of the original IR model...")
-        print("..............")
-        
         matcher = build_matcher(args)
         losses = ['labels', 'boxes', 'cardinality']
         weight_dict = {'loss_ce': 1, 'loss_bbox': args.bbox_loss_coef}
@@ -131,6 +127,9 @@ def main(mode):
         device = torch.device(args.device)
         
         if mode == "eval_orig":
+            print("..............")
+            print("Evaluation of the original IR model...")
+            print("..............")
             ov_model_path = Path(f"{ROOT}/IR_models/detr_openvino_model/detr-resnet50.xml")
             ov_model = ov.Core().read_model(ov_model_path)
             ov_model.reshape({0: [1, 3, 600, 800]})
@@ -140,6 +139,9 @@ def main(mode):
                                                             data_loader_val, base_ds, device, args.output_dir, input_layer)
             return
         else:
+            print("..............")
+            print("Evaluation of the quantized IR model...")
+            print("..............")
             ov_model_path = Path(f"{ROOT}/IR_models/detr_openvino_model/detr_quantized.xml")
             ov_model = ov.Core().read_model(ov_model_path)
             # Quantized model has the 600*800 shape for input by default
