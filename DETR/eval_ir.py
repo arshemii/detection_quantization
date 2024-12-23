@@ -15,9 +15,9 @@ from typing import Iterable
 
 import torch
 
-import util.misc as utils
-from datasets.coco_eval import CocoEvaluator
-from datasets.panoptic_eval import PanopticEvaluator
+from .util import misc as utils
+from .datasets.coco_eval import CocoEvaluator
+from .datasets.panoptic_eval import PanopticEvaluator
 import openvino as ov
 from torchvision.transforms import ToTensor
 import torch.nn.functional as F
