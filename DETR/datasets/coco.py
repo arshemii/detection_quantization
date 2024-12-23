@@ -10,8 +10,8 @@ import torch
 import torch.utils.data
 import torchvision
 from pycocotools import mask as coco_mask
+from . import transforms as T
 
-import datasets.transforms as T
 
 
 
