@@ -62,12 +62,12 @@ def main(mode):
         print("Quantization is starting...")
         print("..............")
         
-        ov_model_path = Path(f"{ROOT}/effdet_openvino_model/efficientdet-d0-tf.xml")
+        ov_model_path = Path(f"{ROOT}/models/effdet_openvino_model/efficientdet-d0-tf.xml")
         ov_model = ov.Core().read_model(ov_model_path)
 
         # Quantize model
         quantized_model = quantize(ov_model, ds)
-        quantized_model_path = Path(f"{ROOT}/effdet_openvino_model/effdet_quantized.xml")
+        quantized_model_path = Path(f"{ROOT}/models/effdet_openvino_model/effdet_quantized.xml")
         ov.save_model(quantized_model, str(quantized_model_path))
         return
     
@@ -76,7 +76,7 @@ def main(mode):
             print("..............")
             print("Evaluation of the original IR model...")
             print("..............")
-            ov_model_path = Path(f"{ROOT}/effdet_openvino_model/efficientdet-d0-tf.xml")
+            ov_model_path = Path(f"{ROOT}/models/effdet_openvino_model/efficientdet-d0-tf.xml")
             infer, input_layer = ut.infer_prepare(ov_model_path, FLAGS)
             ut.evaluation_IR(FLAGS, infer, input_layer, ds)
             return
@@ -85,7 +85,7 @@ def main(mode):
             print("..............")
             print("Evaluation of the quantized IR model...")
             print("..............")
-            ov_model_path = Path(f"{ROOT}/effdet_openvino_model/effdet_quantized.xml")
+            ov_model_path = Path(f"{ROOT}/models/effdet_openvino_model/effdet_quantized.xml")
             infer, input_layer = ut.infer_prepare(ov_model_path, FLAGS)
             ut.evaluation_IR(FLAGS, infer, input_layer, ds)
             return
