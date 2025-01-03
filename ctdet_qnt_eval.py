@@ -67,7 +67,8 @@ def main(mode):
     split = 'val' 
     dataset = Dataset(opt, split)
     # Adjust this value according to your .pth file
-    opt.load_model = '/home/arash/Thesis/2-quantization app/CTDET/ctdet_coco_dlav0_1x.pth'
+    # download.pth from: https://github.com/openvinotoolkit/open_model_zoo/tree/master/models/public/ctdet_coco_dlav0_512
+    opt.load_model = f"{ROOT}/CTDET/ctdet_coco_dlav0_1x.pth"
     # Provide this to store a .json report file
     opt.save_dir = '/home/arash/Thesis/2-quantization app/CTDET/exp_dir'
     Detector = detector_factory[opt.task]
