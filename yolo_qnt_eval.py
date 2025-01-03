@@ -107,7 +107,7 @@ def main(arg):
         ov_model, ov_model_path = ut.prepare_openvino_model(model_name, ROOT, arg)
         if arg.mode == 'qnt':
             quantized_model = quantize(ov_model, data_loader, validator, ignored)
-            quantized_model_path = Path(f"{ROOT}/{model_name}_openvino_model/{model_name}_quantized.xml")
+            quantized_model_path = Path(f"{ROOT}/models/{model_name}_openvino_model/{model_name}_quantized.xml")
             ov.save_model(quantized_model, str(quantized_model_path))
             print("Quantization is finished")
         else:
