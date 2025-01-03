@@ -100,13 +100,13 @@ def main(mode):
         print("Quantization is starting...")
         print("..............")
         
-        ov_model_path = Path(f"{ROOT}/IR_models/detr_openvino_model/detr-resnet50.xml")
+        ov_model_path = Path(f"{ROOT}/models/detr_openvino_model/detr-resnet50.xml")
         ov_model = ov.Core().read_model(ov_model_path)
         ov_model.reshape({0: [1, 3, 600, 800]})  # to reduce inference complexity
 
         # Quantize model
         quantized_model = quantize(ov_model, data_loader_val)
-        quantized_model_path = Path(f"{ROOT}/IR_models/detr_openvino_model/detr_quantized.xml")
+        quantized_model_path = Path(f"{ROOT}/models/detr_openvino_model/detr_quantized.xml")
         ov.save_model(quantized_model, str(quantized_model_path))
         return
     
@@ -130,7 +130,7 @@ def main(mode):
             print("..............")
             print("Evaluation of the original IR model...")
             print("..............")
-            ov_model_path = Path(f"{ROOT}/IR_models/detr_openvino_model/detr-resnet50.xml")
+            ov_model_path = Path(f"{ROOT}/detr_openvino_model/detr-resnet50.xml")
             ov_model = ov.Core().read_model(ov_model_path)
             ov_model.reshape({0: [1, 3, 600, 800]})
             compiled_model = core.compile_model(ov_model, device_name="CPU", config={hints.performance_mode: hints.PerformanceMode.THROUGHPUT})
@@ -142,7 +142,7 @@ def main(mode):
             print("..............")
             print("Evaluation of the quantized IR model...")
             print("..............")
-            ov_model_path = Path(f"{ROOT}/IR_models/detr_openvino_model/detr_quantized.xml")
+            ov_model_path = Path(f"{ROOT}/models/detr_openvino_model/detr_quantized.xml")
             ov_model = ov.Core().read_model(ov_model_path)
             # Quantized model has the 600*800 shape for input by default
             #ov_model.reshape({0: [1, 3, 600, 800]})
