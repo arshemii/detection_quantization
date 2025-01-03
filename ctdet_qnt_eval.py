@@ -62,7 +62,7 @@ def main(mode):
     opt = opts().init(['ctdet', '--arch', 'dlav0_34'])
     Dataset = dataset_factory[opt.dataset]
     opt = opts().update_dataset_info_and_set_heads(opt, Dataset)
-    opt.data_dir = '/home/arash/Thesis/2-quantization app/datasets/'
+    opt.data_dir = f"{ROOT}/datasets/"
     opt.gpus = [-1]
     split = 'val' 
     dataset = Dataset(opt, split)
@@ -70,7 +70,7 @@ def main(mode):
     # download.pth from: https://github.com/openvinotoolkit/open_model_zoo/tree/master/models/public/ctdet_coco_dlav0_512
     opt.load_model = f"{ROOT}/CTDET/ctdet_coco_dlav0_1x.pth"
     # Provide this to store a .json report file
-    opt.save_dir = '/home/arash/Thesis/2-quantization app/CTDET/exp_dir'
+    opt.save_dir = f"{ROOT}/CTDET/exp_dir"
     Detector = detector_factory[opt.task]
     detector = Detector(opt)
 
@@ -85,13 +85,13 @@ def main(mode):
         print("Quantization is starting...")
         print("..............")
         
-        ov_model_path = Path(f"{ROOT}/ctdet_openvino_model/ctdet_coco_dlav0_512.xml")
+        ov_model_path = Path(f"{ROOT}/models/ctdet_openvino_model/ctdet_coco_dlav0_512.xml")
         ov_model = ov.Core().read_model(ov_model_path)
         ov_model.reshape({0: [1, 3, 512, 512]})  # to reduce inference complexity
 
         # Quantize model
         quantized_model = quantize(ov_model, data_loader)
-        quantized_model_path = Path(f"{ROOT}/ctdet_openvino_model/ctdet_quantized.xml")
+        quantized_model_path = Path(f"{ROOT}/models/ctdet_openvino_model/ctdet_quantized.xml")
         ov.save_model(quantized_model, str(quantized_model_path))
         return
     
@@ -102,7 +102,7 @@ def main(mode):
             print("..............")
             print("Evaluation of the original IR model...")
             print("..............")
-            ov_model_path = Path(f"{ROOT}/ctdet_openvino_model/ctdet_coco_dlav0_512.xml")
+            ov_model_path = Path(f"{ROOT}/models/ctdet_openvino_model/ctdet_coco_dlav0_512.xml")
             ov_model = ov.Core().read_model(ov_model_path)
             ov_model.reshape({0: [1, 3, 512, 512]})
             
@@ -114,7 +114,7 @@ def main(mode):
             print("..............")
             print("Evaluation of the quantized IR model...")
             print("..............")
-            ov_model_path = Path(f"{ROOT}/ctdet_openvino_model/ctdet_quantized.xml")
+            ov_model_path = Path(f"{ROOT}/models/ctdet_openvino_model/ctdet_quantized.xml")
             ov_model = ov.Core().read_model(ov_model_path)
             # Quantized model has the 512*512 shape for input by default
             #ov_model.reshape({0: [1, 3, 512, 512]})
