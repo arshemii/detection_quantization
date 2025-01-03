@@ -62,9 +62,9 @@ def validate_ov(
 
 def prepare_openvino_model(model_name: str, ROOT, arg) -> Tuple[ov.Model, Path]:
     if arg.mode == 'eval_orig' or arg.mode == 'qnt':
-        ir_model_path = Path(f"{ROOT}/{model_name}_openvino_model/{model_name}.xml")
+        ir_model_path = Path(f"{ROOT}/models/{model_name}_openvino_model/{model_name}.xml")
     else:
-        ir_model_path = Path(f"{ROOT}/{model_name}_openvino_model/{model_name}_quantized.xml")
+        ir_model_path = Path(f"{ROOT}/models/{model_name}_openvino_model/{model_name}_quantized.xml")
 
     return ov.Core().read_model(ir_model_path), ir_model_path
 
